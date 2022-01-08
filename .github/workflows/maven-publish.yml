@@ -1,16 +1,13 @@
-# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
-
-name: Maven Package
-
+name: Build Backend
 on: [push]
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-java@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Java 17
+      uses: actions/setup-java@v2
       with:
         distribution: 'adopt'
         java-version: '17'

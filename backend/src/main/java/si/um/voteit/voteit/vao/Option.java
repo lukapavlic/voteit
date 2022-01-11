@@ -3,12 +3,11 @@ package si.um.voteit.voteit.vao;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Optn")
 @Data @NoArgsConstructor @ToString
 public class Option {
 
@@ -23,6 +22,7 @@ public class Option {
 
     private int orderValue;
 
+    @Column(name = "val")
     private String value="Value";
 
 }

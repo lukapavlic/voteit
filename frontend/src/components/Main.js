@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import {Button,TextField} from '@mui/material';
 
 const Main = () => {
 
@@ -9,30 +10,20 @@ const Main = () => {
 
     return (
         <div>
-            Many options.
-            One person - One vote. Anonymous. Period.<br />
 
-            <table>
-                <tbody><tr>
-                    <td>
-                        Create a Survey:<br/>
-                        <input type='text' onChange={(e) => { setNewSurveyName(e.target.value) }} /><br/>
-                        <button onClick={(e) => {
-                            navigate('/addsurvey?name='+newSurveyName)
-                        }} >Create It!</button>
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        Insert your token to vote:<br/>
-                        <input type='text' onChange={(e) => { setTokenToVote(e.target.value) }} /><br/>
-                        <button onClick={(e) => {
-                            navigate('/vote?name='+tokenToVote)
-                        }} >Vote It!</button>
-                    </td>
-                    </tr></tbody>
-            </table>
+            <div>
+                <TextField label="New Survey Name" variant="outlined" size="small" onChange={(e) => { setNewSurveyName(e.target.value) }} />
+                <Button variant='contained' onClick={(e) => {
+                    navigate('/addsurvey?name=' + newSurveyName)
+                }}>Create It!</Button>
+            </div>
+
+            <div>
+                <TextField label="Your Token" variant="outlined" size="small" onChange={(e) => { setTokenToVote(e.target.value) }} />
+                <Button variant='contained' onClick={(e) => {
+                    navigate('/vote?name=' + tokenToVote)
+                }} >Vote It!</Button>
+            </div>
 
         </div>
     )

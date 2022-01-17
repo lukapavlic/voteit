@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSearchParams } from "react-router-dom"
+import {Button,Grid,MenuItem,Select,SvgIcon,Switch,TextField} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const AddSurvey = ({addSurveyFunction}) => {
 
@@ -59,42 +61,52 @@ const AddSurvey = ({addSurveyFunction}) => {
     return (
         <form>
             <h3>Add New Survey</h3>
-            <div>
-                Survey name:
-                <input type='text' value={name} onChange={(e) => { setName(e.target.value) }} />
-                <br />
-                Survey type:
-                <select value={type} onChange={(e) => {setType(e.target.value)}}>
-                    <option value="SELECT_ONE">Select one option</option>
-                    <option value="RANK_ALL">Rank all options</option>
-                </select>
-                <br />
 
-                <input type='checkbox' value={enabled} onChange={(e) => { setEnabled(e.target.checked) }} />
-                Enabled
-                <br />
 
-                <input type='checkbox' value={resultsPubliclyAvailable} onChange={(e) => { setResultsPubliclyAvailable(e.target.checked) }} />
-                Results will be publicly available
-                <br />
+<Grid container spacing='2'>
 
-                <input type='checkbox' value={voteCanBeAltered} onChange={(e) => { setVoteCanBeAltered(e.target.checked) }} />
-                Voters can update their choice several times
-                <br />
+    <Grid item xs='3'>Survey name:</Grid>
+    <Grid item xs='9'><TextField label="New Survey Title" variant="outlined" size="small" value={name} onChange={(e) => { setName(e.target.value) }} /></Grid>
 
-                <br />Options: <button onClick={addOption}>+</button> <br />
-                {options.map((o, i) => (
-                    <div key={i}>
-                        <input  type='text' value={o.value} onChange={(e) => {
-                            options[i].value = e.target.value
-                            setOptions([...options])
-                        }} />
-                        <button onClick={(e)=>deleteOption(e,o.orderValue)}>-</button>
-                    </div>
-                ))}
-                
+    <Grid item xs='3'>Survey type:</Grid>
+    <Grid item xs='9'>
+        <Select size="small" value={type} label="Survey type" onChange={(e) => {setType(e.target.value)}} >
+            <MenuItem value="SELECT_ONE">Select one option</MenuItem>
+            <MenuItem value="RANK_ALL">Rank all options</MenuItem>
+        </Select>
+    </Grid>
+
+    <Grid item xs='3'>Enabled</Grid>
+    <Grid item xs='9'><Switch  checked={enabled} onChange={(e) => { setEnabled(e.target.checked) }} /></Grid>
+
+    <Grid item xs='3'>Results will be publicly available</Grid>
+    <Grid item xs='9'><Switch checked={resultsPubliclyAvailable} onChange={(e) => { setResultsPubliclyAvailable(e.target.checked) }} /></Grid>
+
+    <Grid item xs='3'>Voters can update their choice several times</Grid>
+    <Grid item xs='9'><Switch checked={voteCanBeAltered} onChange={(e) => { setVoteCanBeAltered(e.target.checked) }} /></Grid>
+
+    <Grid item xs='3'>
+        Options:<br/>
+        <Button variant='outlined' size="small" onClick={addOption}>+</Button>
+    </Grid>
+    <Grid item xs='9'>
+         <br />
+        {options.map((o, i) => (
+            <div key={i}>
+                <TextField label="New Option Title" variant="outlined" size='small' value={o.value} onChange={(e) => {
+                    options[i].value = e.target.value
+                    setOptions([...options])
+                }} />
+                <Button variant='outlined' size="small" onClick={(e)=>deleteOption(e,o.orderValue)}>-</Button>
             </div>
-            <button onClick={addSurvey}>Add Survey</button>
+        ))}
+    </Grid>
+
+    <Grid item xs='3'><Button variant='contained' onClick={addSurvey}>Add Survey</Button></Grid>
+    <Grid item xs='9'></Grid>
+</Grid>
+
+            
 
         </form>
     )

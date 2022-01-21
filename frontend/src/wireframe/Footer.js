@@ -2,8 +2,7 @@ const Footer = () => {
 
     return (
         <>
-            
-            
+
         </>
     )
 

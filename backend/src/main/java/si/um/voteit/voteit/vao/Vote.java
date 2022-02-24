@@ -19,7 +19,8 @@ public class Vote {
     @Id
     private String token="000000";
 
-    private Integer value;
+    //TODO model rank-all type
+    //private Integer value;
 
     private Integer optionIdSelected;
 

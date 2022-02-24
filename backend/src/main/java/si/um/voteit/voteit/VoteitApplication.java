@@ -29,6 +29,8 @@ public class VoteitApplication {
 	}
 
 	static void insertSampleSurvey(SurveyRepository surveyDao, VoteRepository voteDao){
+
+		//TODO remove after production deployment
 		Survey survey=new Survey("sample.user@vote.it","Sample Survey");
 		survey.setEnabled(true);
 		survey.setResultsPubliclyAvailable(true);

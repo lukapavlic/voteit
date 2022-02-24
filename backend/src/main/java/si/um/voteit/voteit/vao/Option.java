@@ -3,7 +3,6 @@ package si.um.voteit.voteit.vao;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 
 @Entity

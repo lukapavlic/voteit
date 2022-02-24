@@ -21,6 +21,8 @@ public class TokenGenerator {
 
     private Random rand=new Random();
 
+    private String lastGeneratedToken;
+
     public TokenGenerator(Survey survey, VoteRepository dao) {
         this.survey = survey;
         this.dao = dao;
@@ -36,6 +38,7 @@ public class TokenGenerator {
         String ret="";//=survey.getId()+"";
         for (int i=0;i<TOKEN_LENGTH;i++)
             ret=ret+validChars.charAt(rand.nextInt(0,length));
+        lastGeneratedToken=ret;
         return ret;
     }
 
@@ -47,7 +50,12 @@ public class TokenGenerator {
                 token=constructUniqueToken();
             }
             dao.save(new Vote(token, survey.getId()));
+            //log.info(token);
         }
+    }
+
+    public String getLastGeneratedToken() {
+        return lastGeneratedToken;
     }
 
 }

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import si.um.voteit.voteit.dao.OptionRepository;
 import si.um.voteit.voteit.dao.SurveyRepository;
+import si.um.voteit.voteit.dao.VoteRepository;
 import si.um.voteit.voteit.rest.security.SecurityFacade;
 import si.um.voteit.voteit.vao.Option;
 import si.um.voteit.voteit.vao.Survey;
@@ -19,14 +20,17 @@ public class SurveyController {
 
 	private static final Logger log = Logger.getLogger(SurveyController.class.toString());
 
-	public SurveyController(SurveyRepository dao,OptionRepository optDao) {
+	public SurveyController(SurveyRepository dao, OptionRepository optDao, VoteRepository voteDao) {
 		this.dao = dao;
-		this.optDao=optDao;
+		this.optDao = optDao;
+		this.voteDao = voteDao;
 	}
 
 	private SurveyRepository dao;
 
 	private OptionRepository optDao;
+
+	private VoteRepository voteDao;
 
 	@GetMapping
 	public @ResponseBody Iterable<Survey> getAll() {
@@ -155,8 +159,11 @@ public class SurveyController {
 			log.info("/surveys/"+id+" ; Security violation!");
 			return new ResponseEntity("not-allowed", HttpStatus.FORBIDDEN);
 		}
-		//delete
+		//delete survey
 		dao.delete(val.get());
+		//delete votes
+		voteDao.deleteAllByOwningSurveyId(id);
+
 		return ResponseEntity.ok(val.get());
 	}
 

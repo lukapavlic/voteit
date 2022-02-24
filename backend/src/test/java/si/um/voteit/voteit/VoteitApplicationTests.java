@@ -28,21 +28,24 @@ class VoteitApplicationTests {
 	@Autowired
 	VoteRepository voteDao;
 
-	void setupData(){
-		Survey survey=new Survey("test@vote.it","Sample Survey");
-//		survey.getAttributes().put(Survey.ATTRIBUTE_ENABLED,true);
-//		survey.getAttributes().put(Survey.ATTRIBUTE_RESULTS_PUBLICLY_AVAILABLE,true);
-//		survey.getAttributes().put(Survey.ATTRIBUTE_VOTE_CAN_BE_ALTERED,false);
+	String insertSurvey(String name, boolean enabled, boolean resultsAvailable, boolean alterVote, int tokens){
+		Survey survey=new Survey("sample.user@vote.it",name);
+		survey.setEnabled(enabled);
+		survey.setResultsPubliclyAvailable(resultsAvailable);
+		survey.setVoteCanBeAltered(alterVote);
 
-		survey.getOptions().add(new Option(1,"Option 1"));
-		survey.getOptions().add(new Option(2,"Option 2"));
-		survey.getOptions().add(new Option(3,"Option 3"));
-		survey.getOptions().add(new Option(4,"Option 4"));
+		survey.getOptions().add(new Option(1,name+"-Option 1"));
+		survey.getOptions().add(new Option(2,name+"-Option 2"));
+		survey.getOptions().add(new Option(3,name+"-Option 3"));
+		survey.getOptions().add(new Option(4,name+"-Option 4"));
 
 		surveyDao.save(survey);
 
-//		TokenGenerator tg=new TokenGenerator(survey,voteDao);
-//		tg.generateTokens(20000);
+		TokenGenerator tg=new TokenGenerator(survey,voteDao);
+		tg.generateTokens(tokens);
+
+		return tg.getLastGeneratedToken();
+
 	}
 
 	@BeforeAll
@@ -61,12 +64,11 @@ class VoteitApplicationTests {
 	void contextLoads() {
 		log.info("@Test contextLoads");
 
-		setupData();
+		String token1=insertSurvey("EnabledSurvey",true,true,true,5);
+		String token2=insertSurvey("DisabledSurvey",false,true,true,5);
+		String token3=insertSurvey("EnabledSurvey-OneVote",true,true,false,5);
+		String token4=insertSurvey("EnabledSurvey-OneVote-NoResults",true,false,false,5);
 
-//		System.out.println("Surveys");
-//		surveyDao.findAll().forEach(System.out::println);
-
-		//voteDao.findAll().forEach(System.out::println);
 	}
 
 }

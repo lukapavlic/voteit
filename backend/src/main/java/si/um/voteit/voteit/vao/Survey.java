@@ -12,6 +12,10 @@ import java.util.List;
 @Data @NoArgsConstructor  @ToString
 public class Survey {
 
+    public enum SurveyType {
+        SELECT_ONE, RANK_ALL
+    }
+
     public Survey(String owner, String name) {
         this.owner = owner;
         this.name=name;

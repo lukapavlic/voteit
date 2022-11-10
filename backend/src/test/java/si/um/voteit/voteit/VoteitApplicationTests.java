@@ -11,7 +11,6 @@ import si.um.voteit.voteit.dao.VoteRepository;
 import si.um.voteit.voteit.logic.TokenGenerator;
 import si.um.voteit.voteit.vao.Option;
 import si.um.voteit.voteit.vao.Survey;
-
 import java.util.logging.Logger;
 
 @SpringBootTest
@@ -47,18 +46,6 @@ class VoteitApplicationTests {
 		return tg.getLastGeneratedToken();
 
 	}
-
-	@BeforeAll
-	static void beforeAll() {
-		log.info("@BeforeAll");
-	}
-
-	@AfterAll
-	static void afterAll() {
-		log.info("@AfterAll");
-	}
-
-
 
 	@Test
 	void contextLoads() {

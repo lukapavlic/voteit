@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import si.um.voteit.voteit.vao.Survey;
-import si.um.voteit.voteit.vao.SurveyType;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class SurveyWithResultsDto {
     private int id;
     private String name;
     private String owner="unknown";
-    private SurveyType type;
+    private Survey.SurveyType type;
     private LocalDateTime createdTimestamp;
     private LocalDateTime modifiedTimestamp;
     private Boolean enabled;

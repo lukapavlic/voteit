@@ -19,6 +19,8 @@ services:
         environment:
             - SPRING_PROFILES_ACTIVE=mysql
             - SPRING_DATASOURCE_URL=jdbc:mysql://spring_db:3306/voteitdb
+        depends_on:
+            - spring_db
 
 volumes:
     mysql_db:
